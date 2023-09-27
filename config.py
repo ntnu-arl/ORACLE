@@ -62,7 +62,7 @@ NUM_SEQUENCE_TO_EVALUATE = NUM_VEL_X * NUM_VEL_Z * NUM_YAW
 NUM_SEQUENCE_TO_EVALUATE_INFOGAIN = NUM_SEQUENCE_TO_EVALUATE # ignored for now 
 
 # inference type
-COLLISION_USE_TENSORRT = True
+COLLISION_USE_TENSORRT = False #True
 INFOGAIN_USE_TENSORRT = False
 
 # visualization
@@ -83,7 +83,7 @@ USE_D455_HOLE_FILLING = False
 DEADEND_COL_SCORE_THRESHOLD_HIGH = 3.0 # allow to yaw in spot to find new free direction
 DEADEND_COL_SCORE_THRESHOLD_LOW = 1.5 # exit yawing in dead end mode 
 TIME_WEIGHT_FACTOR = 0.04 # 0.0: zero effect
-COLLISION_THRESHOLD = 0.075 #0.2 #0.04 # threshold (compared to the safest action sequence) before checking goal_dir
+COLLISION_THRESHOLD = 0.01 #0.2 #0.04 # threshold (compared to the safest action sequence) before checking goal_dir
 
 # waypoint condition and what to do after reaching the waypoints
 WAYPOINT_FILE = 'waypoints/waypoint_front.txt'
@@ -92,8 +92,8 @@ WAYPOINT_YAW_THRESHOLD = np.deg2rad(180.0)
 ALLOW_YAW_AT_WAYPOINT = True
 
 # Uncertainty-aware
-N_E = 5 # number of CPNs in the ensemble
-USE_UT = True
+N_E = 1 # number of CPNs in the ensemble
+USE_UT = False
 
 USE_ADDITIVE_GAUSSIAN_IMAGE_NOISE = False
 USE_ADDITIVE_GAUSSIAN_STATE_NOISE = False
