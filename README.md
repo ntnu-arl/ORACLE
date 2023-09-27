@@ -13,11 +13,13 @@ Additionally, create a conda environment:
 # Follow the below procedure if you have CUDA 11
 conda create -n oracle_env python=3.8 libffi=3.3
 conda activate oracle_env
+cd lmf_sim_ws/src/planning/ORACLE/
 pip install -r requirements_cuda11.txt 
 
 # OR follow the below procedure if you have CUDA 10.1 - cudnn 7.6
 conda create -n oracle_env python=3.7 libffi=3.3
 conda activate oracle_env
+cd lmf_sim_ws/src/planning/ORACLE/
 pip install -r requirements_cuda10_1.txt 
 ```
 
