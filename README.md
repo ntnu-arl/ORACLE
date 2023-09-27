@@ -2,6 +2,8 @@
 
 Please check out our [wiki](https://github.com/ntnu-arl/ORACLE/wiki) for more details about this work. We describe briefly below the workflow to derive learning-based navigation policies for our drone model.
 
+The modularized code for Semantically-enhanced Variational Autoencoder can be found in [this repo](https://github.com/ntnu-arl/sevae).
+
 ## 1) Setup simulation environment
 
 Follow the instructions here: [LMF_sim](https://github.com/ntnu-arl/lmf_sim) to set up the simulation workspace. You also need to install the NVIDIA GPU driver, `CUDA toolkit`, and `cudnn` to run Tensorflow on NVIDIA GPU. A typical procedure to install them can be found in [Link](https://medium.com/@pydoni/how-to-install-cuda-11-4-cudnn-8-2-opencv-4-5-on-ubuntu-20-04-65c4aa415a7b), note that the exact versions may change depending on your system.
