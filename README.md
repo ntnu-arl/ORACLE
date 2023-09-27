@@ -2,7 +2,7 @@
 
 Please check out our [wiki](https://github.com/ntnu-arl/ORACLE/wiki) for more details about this work. We describe briefly below the workflow to derive learning-based navigation policies for our drone model.
 
-The modularized code for Semantically-enhanced Variational Autoencoder can be found in [this repo](https://github.com/ntnu-arl/sevae).
+The VAE code from the paper [Semantically-enhanced Deep Collision Prediction for Autonomous Navigation using Aerial Robots](https://arxiv.org/abs/2307.11522) can be found in [this repo](https://github.com/ntnu-arl/sevae).
 
 ## 1) Setup simulation environment
 
@@ -23,9 +23,16 @@ pip install -r requirements_cuda10_1.txt
 
 If you have CUDA 10.1 - cudnn 7.6, follow the instructions [Here](https://docs.nvidia.com/deeplearning/tensorrt/archives/tensorrt-601/tensorrt-install-guide/index.html#installing-tar) to install the TensorRT 6.0.1 python3 wheel file in oracle_env
 
+If you would like to try out seVAE-ORACLE, install additional Python packages in `oracle_env` from [seVAE repo](https://github.com/ntnu-arl/sevae)
+```
+conda activate oracle_env
+cd lmf_sim_ws/src/planning/sevae
+pip3 install -e .
+```
+
 If you are using ROS version < Noetic, then you need to build geometry, geometry2, and vision_opencv packages with python 3 (for `import tf, cv_bridge`) following the below instructions. 
 
-### Build geometry, geometry2 and vision_opencv with python 3
+### Build geometry, geometry2 and vision_opencv with python 3 (NO need for ROS Noetic)
 First, we need to get the path to our conda env:
 ```
 conda activate oracle_env
