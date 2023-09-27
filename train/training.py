@@ -572,14 +572,14 @@ class InferenceCPN():
         return self.recurrent_net.inputs[0].shape[1]
 
 class TrainCPNseVAE(TrainCPN):
-    def build_collision_prediction_network(self, depth_latent_input, output_bias=None):
+    def build_collision_prediction_network(self, depth_image_shape, output_bias=None):
         # input layer
         robot_state_input = tf.keras.Input(shape=STATE_INPUT_SHAPE, name="robot_state_input")
         robot_state_processed = tf.keras.layers.Dense(32, activation='relu', name='robot_state/dense0')(robot_state_input)
         robot_state_processed = tf.keras.layers.Dense(32, activation=None, name='robot_state/dense1')(robot_state_processed)
 
         # latent vector input
-        depth_image_latent_input = tf.keras.Input(shape=depth_latent_input, name="depth_latent_input")
+        depth_image_latent_input = tf.keras.Input(shape=depth_image_shape, name="depth_latent_input")
         depth_dense = tf.keras.layers.Dense(128, activation=None, name='depth_latent/dense0')(depth_image_latent_input)
 
         # Concatenate states and depth image
@@ -1289,6 +1289,44 @@ class DataLoader():
         return image, actions, robot_state, collision_label, info_label, pos_label, height, width, depth, action_horizon
 
     @staticmethod
+    def read_tfrecords_sevae(serialized_example):
+        feature_description = {
+            'latent_space': tf.io.FixedLenFeature([], tf.string),
+            'actions': tf.io.FixedLenFeature([], tf.string),
+            'robot_state': tf.io.FixedLenFeature([], tf.string),
+            'pca_state': tf.io.FixedLenFeature([], tf.string),
+            'label': tf.io.FixedLenFeature([], tf.string),
+            'info_gain_t0_label': tf.io.FixedLenFeature([], tf.float32),
+            'info_gain_label': tf.io.FixedLenFeature([], tf.string),
+            'pos_label': tf.io.FixedLenFeature([], tf.string),
+            'height': tf.io.FixedLenFeature([], tf.int64),
+            'width': tf.io.FixedLenFeature([], tf.int64),
+            'depth': tf.io.FixedLenFeature([], tf.int64),
+            'action_horizon': tf.io.FixedLenFeature([], tf.int64)
+        }
+        example = tf.io.parse_single_example(
+            serialized_example, feature_description)
+
+        latent_space = tf.io.parse_tensor(example['latent_space'], out_type=tf.float32)
+
+        actions = tf.io.parse_tensor(example['actions'], out_type=tf.float32)
+        robot_state = tf.io.parse_tensor(
+            example['robot_state'], out_type=tf.float32)
+        # pca_state = tf.io.parse_tensor(example['pca_state'], out_type=tf.float32)
+        collision_label = tf.io.parse_tensor(example['label'], out_type=tf.float32)
+        # info_label_t0 = example['info_gain_t0_label']
+        info_label = tf.io.parse_tensor(
+            example['info_gain_label'], out_type=tf.float32)
+        info_label = info_label * 0.01 # try to scale the label to 0->1 (more or less)
+        pos_label = tf.io.parse_tensor(example['pos_label'], out_type=tf.float32)
+        height = example['height']
+        width = example['width']
+        depth = example['depth']
+        action_horizon = example['action_horizon']
+
+        return latent_space, actions, robot_state, collision_label, info_label, pos_label, height, width, depth, action_horizon
+
+    @staticmethod
     def load_tfrecords(tfrecord_folders, training_type_str, is_shuffle_and_repeat=True, shuffle_buffer_size=5000, prefetch_buffer_size_multiplier=2, batch_size=32):
         print('Loading tfrecords...')
         # for tfrecord_folder in self.tfrecord_folders:
@@ -1307,7 +1345,8 @@ class DataLoader():
             dataset = dataset.map(DataLoader.read_tfrecords,
                                     num_parallel_calls=tf.data.experimental.AUTOTUNE)        
         elif training_type_str == "seVAE-ORACLE":
-            print("TODO: add Data loader for seVAE-ORACLE")
+            dataset = dataset.map(DataLoader.read_tfrecords_sevae,
+                                    num_parallel_calls=tf.data.experimental.AUTOTUNE)
         elif training_type_str == "A-ORACLE":
             dataset = dataset.map(DataLoader.read_tfrecords_with_detection_mask,
                                 num_parallel_calls=tf.data.experimental.AUTOTUNE)
@@ -1402,7 +1441,10 @@ if __name__ == "__main__":
         weight_for_1 = (1 / pos)*(pos + neg)/2.0
         print('Weight for class 0: {:.2f}'.format(weight_for_0))
         print('Weight for class 1: {:.2f}'.format(weight_for_1))
-        custom_predictor_model = TrainCPN(depth_image_shape=DI_SHAPE, output_bias=np.log([pos/neg]))
+        if training_type_str == "ORACLE":
+            custom_predictor_model = TrainCPN(depth_image_shape=DI_SHAPE, output_bias=np.log([pos/neg]))
+        else: # seVAE-ORACLE
+            custom_predictor_model = TrainCPNseVAE(depth_image_shape=DI_LATENT_SIZE, output_bias=np.log([pos/neg]))
     custom_predictor_model.summary()
     if training_type_str == "A-ORACLE":
         plot_model(custom_predictor_model.get_model(), to_file='info_gain_model_plot.png',

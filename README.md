@@ -197,7 +197,34 @@ rosservice call /start_planner "{}"
 
 ## References
 
-TO BE UPDATED
+If you use this work in your research, please cite the following publications:
+
+**Motion Primitives-based Navigation Planning using Deep Collision Prediction**
+
+```
+@INPROCEEDINGS{Nguyen2022ORACLE,
+  author={Nguyen, Huan and Fyhn, Sondre Holm and De Petris, Paolo and Alexis, Kostas},
+  booktitle={2022 International Conference on Robotics and Automation (ICRA)}, 
+  title={Motion Primitives-based Navigation Planning using Deep Collision Prediction}, 
+  year={2022},
+  volume={},
+  number={},
+  pages={9660-9667},
+  doi={10.1109/ICRA46639.2022.9812231}}
+```
+
+**Semantically-enhanced Deep Collision Prediction for Autonomous Navigation using Aerial Robots** (accepted to IROS 2023)
+
+```
+@misc{kulkarni2023semanticallyenhanced,
+      title={Semantically-enhanced Deep Collision Prediction for Autonomous Navigation using Aerial Robots}, 
+      author={Mihir Kulkarni and Huan Nguyen and Kostas Alexis},
+      year={2023},
+      eprint={2307.11522},
+      archivePrefix={arXiv},
+      primaryClass={cs.RO}
+}
+```
 
 ## Ackowledgements
 
@@ -206,6 +233,6 @@ We would like to acknowledge the inspiration from [rpg_public_dronet](https://gi
 ## Contact
 
 You can contact us for any question:
-* [Huan Nguyen](mailto:dinh.h.nguyen@ntnu.no)
+* [Huan Nguyen](mailto:ndhuan93@gmail.com)
 * [Mihir Kulkarni](mailto:mihir.kulkarni@ntnu.no)
 * [Kostas Alexis](mailto:konstantinos.alexis@ntnu.no)
