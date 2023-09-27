@@ -1,0 +1,11 @@
+rospkg
+numpy
+matplotlib
+scipy
+python-gflags==3.1.2
+opencv-python
+tensorflow-gpu==2.3.0
+pycuda
+protobuf==3.15.5
+pydot
+graphviz

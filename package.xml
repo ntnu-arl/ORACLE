@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>deep_collision_predictor</name>
+  <version>0.0.0</version>
+  <description>The deep_collision_predictor package</description>
+
+  <maintainer email="dinh.h.nguyen@ntnu.no">Dinh Huan Nguyen</maintainer>
+
+  <license>TODO</license>
+
+  <buildtool_depend>catkin</buildtool_depend>
+  <depend>rospy</depend>
+  <depend>std_msgs</depend>
+  <depend>lmf_planner_srvs_msgs</depend>
+  <depend>voxblox_msgs</depend>
+
+</package>

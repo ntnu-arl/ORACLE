@@ -1,0 +1,1 @@
+trtexec --onnx=cnn_only_onnx_model_with_state.onnx --workspace=4096 --saveEngine=collision_cnn_only_engine_fp32.trt  --explicitBatch
