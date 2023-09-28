@@ -1,4 +1,4 @@
-# ORACLE
+# ORACLE: Library of Deep Learning-based Safe Navigation Methods
 
 Please check out our [wiki](https://github.com/ntnu-arl/ORACLE/wiki) for more details about this work. We describe briefly below the workflow to derive learning-based navigation policies for our drone model.
 
