@@ -82,9 +82,10 @@ If `--save_path` is not specified, the default path in `common_flags.py` is used
 
 ## 3) Process the training data:
 
+### ORACLE and A-ORACLE
 Set `TRAIN_INFOGAIN = False` (for generating ORACLE data) or `True` (for labeling A-ORACLE data with Voxblox) in `config.py` file.
 
-If labeling data for A-ORACLE, we need to run in one terminal (NO need to run this for ORACLE or seVAE-ORACLE)
+If labeling data for A-ORACLE, we need to run in one terminal (NO need to run this for ORACLE)
 ```
 roslaunch voxblox_ros voxblox_gazebo.launch
 ```
@@ -93,7 +94,16 @@ In another terminal, run
 ```
 # conda activate oracle_env
 python process/data_processing.py --load_path=path_to_folder --save_tf_path=path_to_folder
-``` 
+```
+
+### seVAE-ORACLE
+Run the script in seVAE [repo](https://github.com/ntnu-arl/sevae) to create the `di_latent.p` and `di_flipped_latent.p` pickle files. Put the latent pickles in the same folder as the other pickle files in step 2 above.
+
+Then run
+```
+# conda activate oracle_env
+python process/data_processing_sevae.py --load_path=path_to_folder --save_tf_path=path_to_folder
+```
 
 If `--load_path` or `--save_tf_path` is not specified, the default path in `common_flags.py` is used. \
 The tfrecord files created from `data_processing.py` are saved in `save_tf_path`. \
@@ -224,17 +234,29 @@ If you use this work in your research, please cite the following publications:
   doi={10.1109/ICRA46639.2022.9812231}}
 ```
 
-**Semantically-enhanced Deep Collision Prediction for Autonomous Navigation using Aerial Robots** (accepted to IROS 2023)
+**Semantically-enhanced Deep Collision Prediction for Autonomous Navigation using Aerial Robots**
 
 ```
-@misc{kulkarni2023semanticallyenhanced,
-      title={Semantically-enhanced Deep Collision Prediction for Autonomous Navigation using Aerial Robots}, 
-      author={Mihir Kulkarni and Huan Nguyen and Kostas Alexis},
-      year={2023},
-      eprint={2307.11522},
-      archivePrefix={arXiv},
-      primaryClass={cs.RO}
-}
+@INPROCEEDINGS{kulkarni2023semanticallyenhanced,
+  author={Kulkarni, Mihir and Nguyen, Huan and Alexis, Kostas},
+  booktitle={2023 IEEE/RSJ International Conference on Intelligent Robots and Systems (IROS)}, 
+  title={Semantically-Enhanced Deep Collision Prediction for Autonomous Navigation Using Aerial Robots}, 
+  year={2023},
+  volume={},
+  number={},
+  pages={3056-3063},
+  doi={10.1109/IROS55552.2023.10342297}}
+```
+
+**Uncertainty-aware visually-attentive navigation using deep neural networks**
+
+```
+@article{Nguyen2023AORACLE,
+  author = {Huan Nguyen and Rasmus Andersen and Evangelos Boukas and Kostas Alexis},
+  title ={Uncertainty-aware visually-attentive navigation using deep neural networks},
+  journal = {The International Journal of Robotics Research},
+  doi = {10.1177/02783649231218720},
+  URL = {https://doi.org/10.1177/02783649231218720}
 ```
 
 ## Ackowledgements

@@ -293,8 +293,7 @@ class TrainCPN(Model):
         self.alpha1 = alpha1
         self.alpha2 = alpha2
         self.alpha3 = alpha3
-        # TODO: check https://keras.io/api/metrics/#the-addmetric-api BinaryTruePositives
-        self.train_true_positives = self.add_weight(name='train_true_positives', initializer='zeros') # TODO: do we need separate train and validate variables?
+        self.train_true_positives = self.add_weight(name='train_true_positives', initializer='zeros')
         self.train_total_samples = self.add_weight(name='train_total_samples', initializer='zeros')
         self.train_possible_positives = self.add_weight(name='train_possible_positives', initializer='zeros')
         self.train_predicted_positives = self.add_weight(name='train_predicted_positives', initializer='zeros')
@@ -1371,7 +1370,7 @@ if __name__ == "__main__":
         sys.exit(1)
 
     training_type_dict = {0: "ORACLE",
-                          1: "seVAE-ORACLE", # TODO: integrate this
+                          1: "seVAE-ORACLE",
                           2: "A-ORACLE"}
 
     if FLAGS.training_type < 0:
