@@ -200,7 +200,7 @@ Wait until you see the green text `START planner` printed out in the second term
 rosservice call /start_planner "{}"
 ```
 
-### In the real robot (TO BE UPDATED!)
+### In the real robot (see more info about the robot [here](https://github.com/ntnu-arl/lmf_gazebo_models))
 
 Follow the instructions here: [LMF_ws](https://github.com/ntnu-arl/lmf_ws) to set up the software in the real robot.
 
